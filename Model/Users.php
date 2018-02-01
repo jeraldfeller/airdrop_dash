@@ -141,7 +141,7 @@ class Users
             }
             $domain = "https://airdrop.ternio.io/";
             $subject = 'Email Confirmation';
-            $message = 'Please click the link to complete the registration. <a href="'.$_SERVER['DOCUMENT_ROOT'] . '/dashboard/confirm-registration.php?userId='.$userId.'&token='.$confirmationToken.'">CLICK HERE</a>';
+            $message = 'Please click the link to complete the registration. <a href="'. $domain . '/dashboard/confirm-registration.php?userId='.$userId.'&token='.$confirmationToken.'">CLICK HERE</a>';
 
 
             $mail = new PHPMailer\PHPMailer();
@@ -161,13 +161,9 @@ class Users
 
             $mail->Subject = $subject;
             $mail->Body    = $message;
+            $mail->IsHTML(true);
+            $mail->send();
 
-            if(!$mail->send()) {
-                echo 'Message could not be sent.';
-                echo 'Mailer Error: ' . $mail->ErrorInfo;
-            } else {
-                echo 'Message has been sent';
-            }
 
             /*
             // Send email confirmation
