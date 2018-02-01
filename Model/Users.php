@@ -1,7 +1,8 @@
 <?php
 require 'vendor/autoload.php';
 use Mailgun\Mailgun;
-$mailgun = new Mailgun('key-7311f7481907ea2a8f278ea5144e3a24', new \Http\Adapter\Guzzle6\Client());
+use PHPMailer\PHPMailer;
+
 class Users
 {
     public $debug = TRUE;
@@ -138,7 +139,37 @@ class Users
                     $privateKeyCount++;
                 }
             }
+            $domain = "https://airdrop.ternio.io/";
+            $subject = 'Email Confirmation';
+            $message = 'Please click the link to complete the registration. <a href="'.$_SERVER['DOCUMENT_ROOT'] . '/dashboard/confirm-registration.php?userId='.$userId.'&token='.$confirmationToken.'">CLICK HERE</a>';
 
+
+            $mail = new PHPMailer\PHPMailer();
+
+            $mail->isSMTP();                                      // Set mailer to use SMTP
+            $mail->Host = 'smtp.mailgun.org';                     // Specify main and backup SMTP servers
+            $mail->SMTPAuth = true;                               // Enable SMTP authentication
+            $mail->Username = 'postmaster@email.ternio.io';   // SMTP username
+            $mail->Password = 'fd81fdf2772f3ef4640e807704f43ded';                           // SMTP password
+            $mail->SMTPSecure = 'tls';                            // Enable encryption, only 'tls' is accepted
+
+            $mail->From = 'postmaster@email.ternio.io';
+            $mail->FromName = 'Mailer';
+            $mail->addAddress($data['email']);                 // Add a recipient
+
+            $mail->WordWrap = 50;                                 // Set word wrap to 50 characters
+
+            $mail->Subject = $subject;
+            $mail->Body    = $message;
+
+            if(!$mail->send()) {
+                echo 'Message could not be sent.';
+                echo 'Mailer Error: ' . $mail->ErrorInfo;
+            } else {
+                echo 'Message has been sent';
+            }
+
+            /*
             // Send email confirmation
             $mgClient = new Mailgun('YOUR_API_KEY');
             $domain = "https://airdrop.ternio.io/";
@@ -152,7 +183,7 @@ class Users
                 'subject' => $subject,
                 'text'    => $message
             ));
-            /*
+
             $from = 'john.doe.s7edge@gmail.com';
             $subject = 'Email Confirmation';
             $message = 'Please click the link to complete the registration. <a href="'.DOMAIN.'/user/confirm-registration?userId='.$userId.'&token='.$token.'">CLICK HERE</a>';
