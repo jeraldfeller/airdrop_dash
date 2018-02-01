@@ -135,6 +135,9 @@ $totalPublicId = json_decode($dashboard->getTotalPublicIds(), true)['totalCount'
                 <tr>
                     <th></th>
                     <th>Public Id</th>
+                    <th>Private 1</th>
+                    <th>Private 2</th>
+                    <th>Private 3</th>
                     <th>Points</th>
                 </tr>
                 </thead>
@@ -168,13 +171,17 @@ $totalPublicId = json_decode($dashboard->getTotalPublicIds(), true)['totalCount'
 
                     getUserInfo($id).done(function(response){
                         if(response.success == true){
+                            console.log(response);
                             $id = response.info.userId;
                             $points = response.info.points;
                             $publicKey = response.info.keys.public;
                             $privateKeys = response.info.keys.private;
                             $privateKeysHtml = '';
                             for($i = 0; $i < $privateKeys.length; $i++){
-                                $privateKeysHtml += '<tr><td>#'+$privateKeys[$i]['key']+'</td><td><a class="delete-key" data-id="'+$privateKeys[$i]['id']+'">DELETE</a></td><tr>';
+                                if($privateKeys[$i]['key'] != ''){
+                                    $privateKeysHtml += '<tr><td>#'+$privateKeys[$i]['key']+'</td><td><a class="delete-key" data-id="'+$id+'" data-column="'+$privateKeys[$i]['column']+'">DELETE</a></td><tr>';
+                                }
+
                             }
 
                             $('.show-info-modal-public-id').text($publicKey);
@@ -188,6 +195,7 @@ $totalPublicId = json_decode($dashboard->getTotalPublicIds(), true)['totalCount'
                             // edit|remove functions
 
                             $('.delete-key').unbind().on('click', function(){
+                                $column = $(this).attr('data-column');
                                 $id = $(this).attr('data-id');
                                 $row = $(this).parent().parent();
                                 $(this).html('<i class="fa fa-spinner fa-spin"></i>');
@@ -200,11 +208,12 @@ $totalPublicId = json_decode($dashboard->getTotalPublicIds(), true)['totalCount'
                                         success: function (data) {
                                             if(data == true){
                                                 $row.remove();
+                                                oTable.ajax.reload();
                                             }else{
                                                 alert('Something went wrong please try again.');
                                             }
                                         },
-                                        data: {param: JSON.stringify({id: $id})}
+                                        data: {param: JSON.stringify({id: $id, column: $column})}
                                     });
                                 } else {
                                     $(this).html('DELETE');
@@ -271,7 +280,7 @@ $totalPublicId = json_decode($dashboard->getTotalPublicIds(), true)['totalCount'
                 $(nRow).attr('data-id', aData[0]);
                 return nRow;
             },
-            "sAjaxSource": "Controller/table.php?action=points-board",
+            "sAjaxSource": "Controller/table.php?action=points-board-admin",
             "fnServerParams": function ( aoData ) {
                 aoData.push( { "name": "isAdmin", "value": true } );
             },

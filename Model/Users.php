@@ -21,18 +21,7 @@ class Users
 
         if($result != false){
             if($result['confirmed'] == true){
-                $sql = 'SELECT * FROM `user_keys` WHERE `user_id` = "' . $result['id'] . '"';
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute();
-                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    $content[] = $row;
-                }
-                    $privateKeys = array();
-                    foreach($content as $row){
-                        $privateKeys[] = $row['user_key'];
-                    }
-
-
+                    $privateKeys = array($result['private_key_1'],$result['private_key_2'],$result['private_key_3']);
                     $return = array('success' => true,
                         'id' => $result['id'],
                         'firstName' => $result['first_name'],
@@ -105,6 +94,23 @@ class Users
                 }
             }
 
+
+            $privateKeyCount = 1;
+            $privateKeys = array();
+            while($privateKeyCount <= 3){
+                $privateKey = $this->generateRandomString(8);
+
+                $sql = 'SELECT count(id) as totalCount FROM `users` WHERE `private_key_1` = "' . $privateKey . '" OR `private_key_2` = "' . $privateKey . '" OR `private_key_3` = "' . $privateKey . '"';
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                if($result['totalCount'] == 0){
+                    $privateKeys[] = $privateKey;
+                    $privateKeyCount++;
+                }
+            }
+
+
             $sql = 'INSERT INTO `users` (`first_name`, 
                     `last_name`, 
                     `email`, 
@@ -113,13 +119,17 @@ class Users
                     `confirmed`,
                     `points`,
                     `confirmation_token`,
-                    `public_key`
-                    ) VALUES ("' . $data['firstName'] . '", "' . $data['lastName'] . '", "' . $data['email'] . '", "' . $data['password'] . '", false, false, 0, "'.$confirmationToken.'", "' . $publicKey . '")';
+                    `public_key`,
+                    `private_key_1`,
+                    `private_key_2`,
+                    `private_key_3`
+                    ) VALUES ("' . $data['firstName'] . '", "' . $data['lastName'] . '", "' . $data['email'] . '", "' . $data['password'] . '", false, false, 0, "'.$confirmationToken.'", "' . $publicKey . '" , "' . $privateKeys[0] . '", "' . $privateKeys[1] . '", "' . $privateKeys[2] . '")';
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
 
             $userId = $pdo->lastInsertId();
 
+            /*
             $privateKeyCount = 1;
             while($privateKeyCount <= 3){
                 $privateKey = $this->generateRandomString(8);
@@ -139,7 +149,9 @@ class Users
                     $privateKeyCount++;
                 }
             }
-            $domain = "https://airdrop.ternio.io/";
+            */
+
+            $domain = "https://airdrop.ternio.io";
             $subject = 'Email Confirmation';
             $message = 'Please click the link to complete the registration. <a href="'. $domain . '/dashboard/confirm-registration.php?userId='.$userId.'&token='.$confirmationToken.'">CLICK HERE</a>';
 
@@ -242,22 +254,11 @@ class Users
             $email = $result['email'];
             $points = $result['points'];
             $publicKey = $result['public_key'];
-
-            $sql = 'SELECT * FROM `user_keys` WHERE `user_id` = "' . $result['id'] . '"';
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute();
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $content[] = $row;
-            }
-            $privateKeys = array();
-            if($content){
-                foreach($content as $row){
-                    $privateKeys[] = array(
-                        'id' => $row['id'],
-                        'key' => $row['user_key']
-                    );
-                }
-            }
+            $privateKeys = array(
+                array('column' => 'private_key_1', 'key' => $result['private_key_1']),
+                array('column' => 'private_key_2', 'key' => $result['private_key_2']),
+                array('column' => 'private_key_3', 'key' => $result['private_key_3']),
+            );
 
             $info = array(
                 'userId' => $data['id'],
@@ -288,7 +289,8 @@ class Users
     public function deleteKeyAction($data)
     {
         $pdo = $this->getPdo();
-        $sql = 'DELETE FROM `user_keys` WHERE `id` = '.$data['id'].'';
+       // $sql = 'DELETE FROM `user_keys` WHERE `id` = '.$data['id'].'';
+        $sql = 'UPDATE `users` SET `'.$data['column'].'` = "" WHERE `id` = '.$data['id'] . '';
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
 

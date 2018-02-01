@@ -59,7 +59,7 @@ $totalPublicId = json_decode($dashboard->getTotalPublicIds(), true)['totalCount'
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="admin-dashboard.php">Main</a></li>
-                <li><a href="generate-id-list.php">Generate ID List</a></li>
+                <li><a href="generate-list.php">Generate ID List</a></li>
                 <li><a href="logout.php">Logout</a></li>
             </ul>
         </div><!--/.nav-collapse -->

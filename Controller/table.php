@@ -11,6 +11,10 @@ switch ($action){
         $return = $table->tablePointsBoard();
         echo $return;
         break;
+    case 'points-board-admin':
+        $return = $table->tablePointsBoardAdmin();
+        echo $return;
+        break;
     case 'generated-list':
         $return = $table->tableGeneratedList();
         echo $return;
