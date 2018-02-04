@@ -37,4 +37,9 @@ switch ($action){
         $return = $users->editPointsAction($data);
         echo $return;
         break;
+    case 'update-affiliate-url':
+        $data = json_decode($_POST['param'], true);
+        $return = $users->updateAffiliateUrlAction($data);
+        echo $return;
+        break;
 }

@@ -77,7 +77,20 @@ $privateKey = ($userData['hasShared'] == true ? $userData['keys']['private'][arr
         }
         var ternioMe = $urlParam('terniome');
 
-        $('.showafflink-url').html('http://ternio.me/' + ternioMe);
+        $affiliateUrl = 'http://ternio.me/' + ternioMe;
+        $('.showafflink-url').html($affiliateUrl);
+        $.ajax({
+            url: 'Controller/user.php?action=update-affiliate-url',
+            type: 'post',
+            dataType: 'json',
+            success: function (data) {
+            },
+            data: {param: JSON.stringify({
+                    userId: <?php echo $userData['id']; ?>,
+                    affiliateUrl: encodeURIComponent($affiliateUrl)
+                }
+            )}
+        });
     });
 </script>
 </body>

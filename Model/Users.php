@@ -240,6 +240,19 @@ class Users
         );
     }
 
+    public function updateAffiliateUrlAction($data)
+    {
+        $pdo = $this->getPdo();
+        $sql = 'UPDATE `users` SET `affiliate_link` = "' . urldecode($data['affiliateUrl']) . '" WHERE `id` = '.$data['userId'].'';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $success = true;
+        return
+            json_encode(
+                $success
+            );
+    }
+
 
     public function getInfoAction($data)
     {
