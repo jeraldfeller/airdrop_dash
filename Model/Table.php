@@ -92,9 +92,9 @@ class Table
         }
 
         if (!empty($aFilteringRules)) {
-            $sWhere = " WHERE ".implode(" AND ", $aFilteringRules);
+            $sWhere = " WHERE ".implode(" AND ", $aFilteringRules). " AND `user_level` = 'regular'";
         } else {
-            $sWhere = " ";
+            $sWhere = " WHERE `user_level` = 'regular'";
         }
 
 
@@ -250,9 +250,9 @@ class Table
         }
 
         if (!empty($aFilteringRules)) {
-            $sWhere = " WHERE ".implode(" AND ", $aFilteringRules);
+            $sWhere = " WHERE ".implode(" AND ", $aFilteringRules). " AND `user_level` != 'admin'";
         } else {
-            $sWhere = " ";
+            $sWhere = " WHERE `user_level` != 'admin'";
         }
 
 

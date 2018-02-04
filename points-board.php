@@ -67,7 +67,7 @@ $totalPublicId = json_decode($dashboard->getTotalPublicIds(), true)['totalCount'
                     }
 
                 ?>
-                <li><a href="/points-board">Current Points Board</a></li>
+                <li><a href="points-board">Current Points Board</a></li>
                 <?php
                     if($userData['id'] == 0){
                         echo '<li><a href="login.php">Login</a></li>';

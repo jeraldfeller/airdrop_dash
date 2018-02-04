@@ -70,7 +70,7 @@ class Users
     public function registerAccountFunction($data)
     {
         // check duplicate email
-
+        $userLevel = 'regular';
         $pdo = $this->getPdo();
         $sql = 'SELECT count(id) as totalCount FROM `users` WHERE `email` = "' . $data['email'] . '"';
         $stmt = $pdo->prepare($sql);
@@ -122,8 +122,9 @@ class Users
                     `public_key`,
                     `private_key_1`,
                     `private_key_2`,
-                    `private_key_3`
-                    ) VALUES ("' . $data['firstName'] . '", "' . $data['lastName'] . '", "' . $data['email'] . '", "' . $data['password'] . '", false, false, 0, "'.$confirmationToken.'", "' . $publicKey . '" , "' . $privateKeys[0] . '", "' . $privateKeys[1] . '", "' . $privateKeys[2] . '")';
+                    `private_key_3`,
+                    `user_level`
+                    ) VALUES ("' . $data['firstName'] . '", "' . $data['lastName'] . '", "' . $data['email'] . '", "' . $data['password'] . '", false, false, 0, "'.$confirmationToken.'", "' . $publicKey . '" , "' . $privateKeys[0] . '", "' . $privateKeys[1] . '", "' . $privateKeys[2] . '", "' . $userLevel . '")';
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
 

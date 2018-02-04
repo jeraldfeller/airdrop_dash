@@ -14,9 +14,10 @@ class Dashboard
         $dateTime = date('Y-m-d H:i:s');
         $count = $data['count'];
 
-        $sql = 'SELECT * FROM `users`';
+        $sql = 'SELECT * FROM `users` WHERE `user_level` != "admin"';
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
+        $result = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $result[] = $row;
         }
@@ -72,7 +73,7 @@ class Dashboard
 
     public function getTotalPublicIds(){
         $pdo = $this->getPdo();
-        $sql = 'SELECT count(id) as totalCount FROM `users`';
+        $sql = 'SELECT count(id) as totalCount FROM `users` WHERE `user_level` = "regular"';
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
