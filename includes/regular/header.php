@@ -9,11 +9,27 @@
             </button>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
+            <div class="dashlogo"></div>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="index.php">Main</a></li>
+                <?php
+                if($userData['id'] != 0){
+                    if($userData['userLevel'] == 'admin'){
+                        echo '<li><a href="admin-dashboard.php">Main</a></li>';
+                    }else{
+                        echo '<li><a href="index.php">Main</a></li>';
+                    }
+                }
+
+                ?>
                 <li><a href="points-board.php">Current Points Board</a></li>
                 <li><a href="affiliate.php">Affiliate</a></li>
-                <li><a href="logout.php">Logout</a></li>
+                <?php
+                if($userData['id'] == 0){
+                    echo '<li><a href="login.php">Login</a></li>';
+                }else{
+                    echo '<li><a href="logout.php">Logout</a></li>';
+                }
+                ?>
             </ul>
         </div><!--/.nav-collapse -->
     </div>

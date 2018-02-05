@@ -8,8 +8,8 @@ $privateKey = ($userData['hasShared'] == true ? $userData['keys']['private'][arr
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>Main</title>
-
+    <title>Affiliate</title>
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css">
     <link rel="icon" type="image/x-icon" href="" />
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -30,6 +30,9 @@ $privateKey = ($userData['hasShared'] == true ? $userData['keys']['private'][arr
             display: none;
         }
 
+        .fsPage{
+            color: #fff;
+        }
     </style>
 
 </head>

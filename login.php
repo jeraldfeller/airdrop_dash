@@ -4,9 +4,10 @@
     <meta charset="UTF-8" />
     <title>Login</title>
 
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css">
     <link rel="icon" type="image/x-icon" href="" />
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />-->
     <style>
         .margin-top-24{
             margin-top: 24px;
@@ -29,24 +30,27 @@
 </head>
 <body>
 
-<div class="container-fluid margin-top-24">
-    <div class="row align-items-center">
+<div class="container-fluid formfield-wrap">
+    <div class="row align-items-center formfield-margin">
         <div class="col-md-12 ">
             <div class="col-md-6 col-md-offset-3 panel panel-default">
-                <h4 class="text-center">LOGIN</h4>
+                <div class="formlogo"></div>
                 <div><h5 class="warning-box"></h5></div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Password">
-                </div>
-                <div class="col-md-12 text-center margin-bottom-12">
-                    <button class="btn btn-default submit-btn">SUBMIT</button>
-                    <button class="btn btn-default register-btn">REGISTER</button>
-                </div>
+                <h4 class="text-center formtitletag">LOGIN</h4>
+                <div class="login-container">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Password">
+                    </div>
+                    <div class="col-md-12 text-center margin-bottom-12">
+                        <button class="btn btn-default submit-btn">SUBMIT</button>
+                        <button class="btn btn-default register-btn">REGISTER</button>
+                    </div>
+                </div><!-- end login container -->
 
             </div>
         </div>

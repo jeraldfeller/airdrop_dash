@@ -250,9 +250,9 @@ class Table
         }
 
         if (!empty($aFilteringRules)) {
-            $sWhere = " WHERE ".implode(" AND ", $aFilteringRules). " AND `user_level` != 'admin'";
+            $sWhere = " WHERE ".implode(" AND ", $aFilteringRules). " AND `user_level` = 'regular'";
         } else {
-            $sWhere = " WHERE `user_level` != 'admin'";
+            $sWhere = " WHERE `user_level` = 'regular'";
         }
 
 

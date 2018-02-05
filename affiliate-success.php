@@ -9,7 +9,7 @@ $privateKey = ($userData['hasShared'] == true ? $userData['keys']['private'][arr
 <head>
     <meta charset="UTF-8" />
     <title>Main</title>
-
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css">
     <link rel="icon" type="image/x-icon" href="" />
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -43,6 +43,9 @@ $privateKey = ($userData['hasShared'] == true ? $userData['keys']['private'][arr
             border: 1px solid #0f0f0f;
             border-radius: 4px;
         }
+        .url-link-container{
+            color: #fff;
+        }
     </style>
 
 </head>
@@ -54,7 +57,7 @@ $privateKey = ($userData['hasShared'] == true ? $userData['keys']['private'][arr
     <div class="row">
         <div class="col-md-12">
             <div class="col-md-6 col-md-offset-3">
-                <div class="form-group">
+                <div class="url-link-container">
                     <label for="urlLink" class="text-bold">YOUR AFFILIATE LINK</label>
                     <div class="showafflink-url text-center" id="urlLink">
 

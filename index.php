@@ -10,6 +10,7 @@ $privateKey = ($userData['hasShared'] == true ? $userData['keys']['private'][arr
     <meta charset="UTF-8" />
     <title>Main</title>
 
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css">
     <link rel="icon" type="image/x-icon" href="" />
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -37,49 +38,49 @@ $privateKey = ($userData['hasShared'] == true ? $userData['keys']['private'][arr
 
 <?php include 'includes/regular/header.php'; ?>
 
-<div class="container-fluid" style="margin-top: 10%;">
+<div class="container-fluid currentpointsmargin" style="margin-top: 10%;">
     <div class="row">
-        <div class="col-md-12 text-center">
-            <h2>Current Points: <?php echo $userData['points']; ?></h2>
+        <div class="col-md-12 text-center dash-currentpoint">
+            <h2>Current Tokens: <?php echo $userData['points']; ?></h2>
         </div>
     </div>
     <div class="row margin-top-24">
-        <div class="col-md-4 col-md-offset-4">
+        <div class="col-md-4 col-md-offset-4 currentpoints-bluewrap">
             <div class="form-group">
-                <label for="firstName">Public Key</label>
+                <label for="firstName">Public Code</label>
                 <input type="text" class="form-control" value="<?php echo $userData['keys']['public']; ?>" readonly>
             </div>
             <div class="form-group">
-                <label for="firstName">Private Key</label>
+                <label for="firstName">Confirmation Code</label>
                 <input type="text" class="form-control private-key-display" value="<?php echo $privateKey; ?>" readonly>
             </div>
         </div>
     </div>
     <?php if($userData['hasShared'] == false) { ?>
-    <div class="row share-container">
-        <div class="col-md-4 col-md-offset-4">
-            <div class="well well-sm">
-                <h3 class="text-center">Reveal Your Private Key</h3>
-                <h4 class="text-center">Share on one of the following social networks to reveal your private key:</h4>
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <div class="col-md-4 col-sm-4 col-xs-4">
-                            <a style="cursor: pointer;" class="share-fb"><img src="assets/images/social/fb.png"></a>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-4">
-                            <a style="cursor: pointer;" class="share-twitter" ><img src="assets/images/social/twitter.png"></a>
+        <div class="row share-container">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="well well-sm sociallikewrap">
+                    <h3 class="text-center">Reveal Your Private Key</h3>
+                    <h4 class="text-center sociallike-bottomrevealtext">Share on one of the following social networks to reveal your private key:</h4>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <a style="cursor: pointer;" class="share-fb"><img src="assets/images/social/fb.png"></a>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <a style="cursor: pointer;" class="share-twitter" ><img src="assets/images/social/twitter.png"></a>
 
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <a style="cursor: pointer;" class="share-reddit" ><img src="assets/images/social/reddit.png"></a>
+                            </div>
                         </div>
-                        <div class="col-md-4 col-sm-4 col-xs-4">
-                            <a style="cursor: pointer;" class="share-reddit" ><img src="assets/images/social/reddit.png"></a>
-                        </div>
+
                     </div>
-
                 </div>
             </div>
         </div>
-    </div>
-   <?php } ?>
+    <?php } ?>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

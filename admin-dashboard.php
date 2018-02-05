@@ -274,8 +274,9 @@ $totalPublicId = json_decode($dashboard->getTotalPublicIds(), true)['totalCount'
                 searchPlaceholder: "Search By ID",
                 "search": ""
             },
-            "bPaginate": false,
-            "iDisplayLength": 20,
+            "bPaginate": true,
+            "bLengthChange": false,
+            "iDisplayLength": 50,
             /*"lengthMenu": [
              [20, 500, 1000, -1],
              [20, 500, 1000, "All"] // change per page values here

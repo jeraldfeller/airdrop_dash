@@ -14,8 +14,8 @@ $totalPublicId = json_decode($dashboard->getTotalPublicIds(), true)['totalCount'
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>Main</title>
-
+    <title>Points Board</title>
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css">
     <link rel="icon" type="image/x-icon" href="" />
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -45,46 +45,13 @@ $totalPublicId = json_decode($dashboard->getTotalPublicIds(), true)['totalCount'
 </head>
 <body>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <?php
-                    if($userData['id'] != 0){
-                        if($userData['userLevel'] == 'admin'){
-                            echo '<li><a href="admin-dashboard.php">Main</a></li>';
-                        }else{
-                            echo '<li><a href="index.php">Main</a></li>';
-                        }
-                    }
-
-                ?>
-                <li><a href="points-board">Current Points Board</a></li>
-                <?php
-                    if($userData['id'] == 0){
-                        echo '<li><a href="login.php">Login</a></li>';
-                    }else{
-                        echo '<li><a href="logout.php">Logout</a></li>';
-                    }
-                ?>
-            </ul>
-        </div><!--/.nav-collapse -->
-    </div>
-</nav>
+<?php include 'includes/regular/header.php'; ?>
 
 <div class="container-fluid" style="margin-top: 10%;">
     <div class="row">
         <div class="col-md-12 text-center">
-            <h2>Points Board </h2>
-            <h4><?php echo $totalPublicId; ?> Public Id's</h4>
+            <h2 style="color:#FFFFFF;">Points Board </h2>
+            <h4 style="color:#FFFFFF;"><?php echo $totalPublicId; ?> Public Id's</h4>
         </div>
     </div>
     <div class="row">
@@ -137,8 +104,9 @@ $totalPublicId = json_decode($dashboard->getTotalPublicIds(), true)['totalCount'
                 searchPlaceholder: "Search By ID",
                 "search": ""
             },
-            "bPaginate": false,
-            "iDisplayLength": 20,
+            "bPaginate": true,
+            "bLengthChange": false,
+            "iDisplayLength": 50,
             /*"lengthMenu": [
              [20, 500, 1000, -1],
              [20, 500, 1000, "All"] // change per page values here

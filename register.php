@@ -4,9 +4,10 @@
     <meta charset="UTF-8" />
     <title>Register</title>
 
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css">
     <link rel="icon" type="image/x-icon" href="" />
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />-->
     <style>
         .margin-top-24{
             margin-top: 24px;
@@ -29,27 +30,29 @@
 </head>
 <body>
 
-<div class="container-fluid margin-top-24">
-    <div class="row align-items-center">
+<div class="container-fluid formfield-wrap">
+    <div class="row align-items-center formfield-margin">
         <div class="col-md-12">
             <div class="col-md-6 col-md-offset-3 panel panel-default">
-                <h4 class="text-center">REGISTER</h4>
+                <div class="formlogo"></div>
+                <h4 class="text-center formtitletag">REGISTER</h4>
+                <div class="registerprobmessage">If you do not receive an email within 30 minutes, please first check your spam folder and then email support@ternio.io</div>
                 <div><h5 class="warning-box"></h5></div>
                 <div class="register-container">
                     <div class="form-group">
-                        <label for="firstName">First Name</label>
+                        <label for="firstName">First Name *</label>
                         <input type="text" class="form-control" id="firstName">
                     </div>
                     <div class="form-group">
-                        <label for="firstName">Last Name</label>
+                        <label for="firstName">Last Name *</label>
                         <input type="text" class="form-control" id="lastName">
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
+                        <label for="email">Email *</label>
                         <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
                     </div>
                     <div class="form-group">
-                        <label for="password">Password</label>
+                        <label for="password">Password *</label>
                         <input type="password" class="form-control" id="password" placeholder="Password">
                     </div>
                     <div class="col-md-12 text-center margin-bottom-12">
