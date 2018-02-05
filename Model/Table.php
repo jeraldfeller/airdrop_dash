@@ -123,13 +123,14 @@ class Table
         }
 
 
-        $iFilteredTotal = count($rResult);
+      //  $iFilteredTotal = count($rResult);
 
         $sql = "SELECT count(id) as totalCount FROM ".$sTable.$sWhere.$sOrder;
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $total = $stmt->fetch(PDO::FETCH_ASSOC);
-        $iTotal = $total['totalCount'];
+        $iTotal = (int)$total['totalCount'];
+        $iFilteredTotal = $iTotal;
 
 
 
@@ -281,14 +282,14 @@ class Table
         }
 
 
-        $iFilteredTotal = count($rResult);
+        //$iFilteredTotal = count($rResult);
 
         $sql = "SELECT count(id) as totalCount FROM ".$sTable.$sWhere.$sOrder;
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $total = $stmt->fetch(PDO::FETCH_ASSOC);
-        $iTotal = $total['totalCount'];
-
+        $iTotal = (int)$total['totalCount'];
+        $iFilteredTotal = $iTotal;
 
 
         /**

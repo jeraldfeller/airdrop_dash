@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>Login</title>
 
-    <link href="assets/css/style.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/style.css?v=1.0" rel="stylesheet" type="text/css">
     <link rel="icon" type="image/x-icon" href="" />
     <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />-->
@@ -14,6 +14,9 @@
         }
         .margin-top-12{
             margin-top: 12px;
+        }
+        .margin-left-12{
+            margin-left: 12px;
         }
         .margin-bottom-12{
             margin-bottom: 12px;
@@ -49,6 +52,7 @@
                     <div class="col-md-12 text-center margin-bottom-12">
                         <button class="btn btn-default submit-btn">SUBMIT</button>
                         <button class="btn btn-default register-btn">REGISTER</button>
+                        <button class="btn btn-default reset-btn margin-left-12">Reset Password</button>
                     </div>
                 </div><!-- end login container -->
 
@@ -65,6 +69,9 @@
     $(document).ready(function(){
         $('.register-btn').on('click', function(){
             location.href = 'register.php';
+        });
+        $('.reset-btn').on('click', function(){
+            location.href = 'password-reset.php';
         });
         $('.submit-btn').on('click', function(){
             $email = $('#email').val();

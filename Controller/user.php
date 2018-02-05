@@ -1,5 +1,6 @@
 <?php
 require $_SERVER['DOCUMENT_ROOT'] . '/dashboard/Model/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/dashboard/Model//Mail.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/dashboard/Model/Users.php';
 $users = new Users();
 
@@ -40,6 +41,16 @@ switch ($action){
     case 'update-affiliate-url':
         $data = json_decode($_POST['param'], true);
         $return = $users->updateAffiliateUrlAction($data);
+        echo $return;
+        break;
+    case 'request-password-reset':
+        $data = json_decode($_POST['param'], true);
+        $return = $users->requestPasswordResetAction($data);
+        echo $return;
+        break;
+    case 'password-reset':
+        $data = json_decode($_POST['param'], true);
+        $return = $users->changePasswordAction($data);
         echo $return;
         break;
 }

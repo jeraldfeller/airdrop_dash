@@ -1,9 +1,7 @@
 <?php
-require 'vendor/autoload.php';
-use Mailgun\Mailgun;
-use PHPMailer\PHPMailer;
 
-class Users
+
+class Users extends Mail
 {
     public $debug = TRUE;
     protected $db_pdo;
@@ -76,7 +74,7 @@ class Users
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
+        $mailerResponse = array();
         if($result['totalCount'] == 0){
 
             $confirmationToken = $this->generateRandomString();
@@ -156,26 +154,7 @@ class Users
             $subject = 'Email Confirmation';
             $message = 'Please click the link to complete the registration. <a href="'. $domain . '/dashboard/confirm-registration.php?userId='.$userId.'&token='.$confirmationToken.'">CLICK HERE</a>';
 
-
-            $mail = new PHPMailer\PHPMailer();
-
-            $mail->isSMTP();                                      // Set mailer to use SMTP
-            $mail->Host = 'smtp.mailgun.org';                     // Specify main and backup SMTP servers
-            $mail->SMTPAuth = true;                               // Enable SMTP authentication
-            $mail->Username = 'postmaster@email.ternio.io';   // SMTP username
-            $mail->Password = 'fd81fdf2772f3ef4640e807704f43ded';                           // SMTP password
-            $mail->SMTPSecure = 'tls';                            // Enable encryption, only 'tls' is accepted
-
-            $mail->From = 'postmaster@email.ternio.io';
-            $mail->FromName = 'Mailer';
-            $mail->addAddress($data['email']);                 // Add a recipient
-
-            $mail->WordWrap = 50;                                 // Set word wrap to 50 characters
-
-            $mail->Subject = $subject;
-            $mail->Body    = $message;
-            $mail->IsHTML(true);
-            $mail->send();
+            $mailerResponse = $this->sendMail($subject, $message, $data['email']);
 
 
             /*
@@ -213,7 +192,8 @@ class Users
             json_encode(
                 array(
                     'success' => $success,
-                    'response' => $response
+                    'response' => $response,
+                    'mailerResponse' => $mailerResponse
                 )
         );
 
@@ -362,6 +342,63 @@ class Users
 
         return $success;
     }
+
+    public function requestPasswordResetAction($data){
+        $pdo = $this->getPdo();
+        $sql = 'SELECT * FROM `users` WHERE `email` = "' . $data['email'] . '"';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $mailerResponse = array();
+        if($result){
+            $code = $this->generateRandomString(6);
+            $sql = 'UPDATE `users` SET `password_reset_code` = "' . $code . '" WHERE `id` = ' . $result['id'] . '';
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            $mailerResponse = $this->sendMail('Password Confirmation Code', 'Code: ' . $code, $result['email']);
+            $success = true;
+            $message = '';
+
+        }else{
+            $success = false;
+            $message = 'Invalid email, please try again.';
+        }
+
+        return json_encode(
+            array(
+                'success' => $success,
+                'message' => $message,
+                'mailerResponse' => $mailerResponse
+            )
+        );
+    }
+
+    public function changePasswordAction($data){
+        $pdo = $this->getPdo();
+        $sql = 'SELECT * FROM `users` WHERE `email` = "' . $data['email'] . '" AND `password_reset_code` = "' . $data['code'] . '"';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($result){
+            $sql = 'UPDATE `users` SET `password` = "' . $data['password'] . '", `password_reset_code` = "" WHERE `id` = ' . $result['id'] . '';
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            $message = 'Password Successfully Changed. <a href="login.php">Login</a>';
+            $success = true;
+        }else{
+            $success = false;
+            $message = 'Invalid code.';
+        }
+
+        return json_encode(
+            array(
+                'success' => $success,
+                'message' => $message
+            )
+        );
+    }
+
+
 
 
     public function generateRandomString($length = 10) {

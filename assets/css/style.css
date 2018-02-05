@@ -180,6 +180,18 @@ a {
 	cursor: pointer;
 }
 
+.reset-btn {
+    float: left;
+    width: 200px;
+    background: #F19F00;
+    margin-top: 25px;
+    border: none;
+    height: 39px;
+    line-height: 38px;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
 .warning-box {
 	float: left;
     width: calc(100% - 40px);
@@ -283,4 +295,15 @@ a {
     margin-bottom: 0px;
     background: #F19F00;
     padding: 10px 20px;
+}
+
+.response-message-container{
+    float: left;
+    width: calc(100% - 72px);
+    outline: 1px solid #5799DA;
+    border: 5px solid #111A2C;
+    background: #152D53;
+    padding: 30px;
+    margin-left: 1px;
+    margin-bottom: 125px;
 }
