@@ -3,7 +3,7 @@
 
 class Users extends Mail
 {
-    public $debug = TRUE;
+    public $debug = FALSE;
     protected $db_pdo;
 
     public function userLoginFunction($data)
@@ -12,7 +12,7 @@ class Users extends Mail
         // check if credential match
 
         $pdo = $this->getPdo();
-        $sql = 'SELECT * FROM `users` WHERE `email` = "' . $data['email'] . '" AND `password` = "' . $data['password'] . '"';
+        $sql = 'SELECT * FROM `users` WHERE `email` = "' . $data['email'] . '" AND `password` = "' . $data['password'] . '" AND `user_level` = "regular"';
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -63,6 +63,58 @@ class Users extends Mail
                     'response' => $response
                 )
         );
+    }
+
+    public function adminLoginFunction($data)
+    {
+
+        // check if credential match
+
+        $pdo = $this->getPdo();
+        $sql = 'SELECT * FROM `users` WHERE `email` = "' . $data['email'] . '" AND `password` = "' . $data['password'] . '"';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($result != false){
+            if($result['user_level'] == 'admin'){
+                $return = array('success' => true,
+                    'id' => $result['id'],
+                    'firstName' => $result['first_name'],
+                    'lastName' => $result['last_name'],
+                    'email' => $result['email'],
+                    'password' => $result['password'],
+                    'userLevel' => $result['user_level']
+                );
+
+                $_SESSION['isLoggedIn'] = true;
+                $_SESSION['userData'] = $return;
+
+                $success = true;
+                $response = array($return);
+
+            }else{
+                $success = false;
+                $response = array(
+                    'message' => 'Account is not admin.'
+                );
+            }
+
+        }else{
+            $success = false;
+            $response = array(
+                'message' => 'Incorrect email or password.'
+            );
+        }
+
+
+        return
+            json_encode(
+                array(
+                    'success' => $success,
+                    'response' => $response
+                )
+            );
     }
 
     public function registerAccountFunction($data)
@@ -277,6 +329,31 @@ class Users extends Mail
                     'info' => $info
                 )
         );
+    }
+
+    public function updateUser($data, $where){
+        $pdo = $this->getPdo();
+        $query = '';
+        $i = 1;
+        $length = count($data);
+        foreach($data as $key => $value){
+            if($i == $length){
+                $query .= '`'.$key.'` = '.$value.'';
+            }else{
+                $query .= '`'.$key.'` = '.$value.', ';
+            }
+        }
+        if(count($where) > 0){
+            $where = 'WHERE '.$where['column'] . $where['operator'] . $where['value'];
+        }else{
+            $where ='';
+        }
+
+        $sql = 'UPDATE `users` SET '. $query . ' ' . $where .'';
+        $stmt = $pdo->prepare($sql);
+
+
+        $stmt->execute();
     }
 
 

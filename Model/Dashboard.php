@@ -84,6 +84,8 @@ class Dashboard
     }
 
 
+
+
     public function pdoQuoteValue($value)
     {
         $pdo = $this->getPdo();

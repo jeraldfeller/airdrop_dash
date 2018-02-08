@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>Login</title>
+    <title>Admin Login</title>
 
     <link href="assets/css/style.css?v=1.0" rel="stylesheet" type="text/css">
     <link rel="icon" type="image/x-icon" href="" />
@@ -39,7 +39,7 @@
             <div class="col-md-6 col-md-offset-3 panel panel-default">
                 <div class="formlogo"></div>
                 <div><h5 class="warning-box"></h5></div>
-                <h4 class="text-center formtitletag">LOGIN</h4>
+                <h4 class="text-center formtitletag">ADMIN LOGIN</h4>
                 <div class="login-container">
                     <div class="form-group">
                         <label for="email">Email</label>
@@ -51,7 +51,6 @@
                     </div>
                     <div class="col-md-12 text-center margin-bottom-12">
                         <button class="btn btn-default submit-btn">SUBMIT</button>
-                        <button class="btn btn-default register-btn">REGISTER</button>
                         <button class="btn btn-default reset-btn margin-left-12">Reset Password</button>
                     </div>
                 </div><!-- end login container -->
@@ -67,9 +66,6 @@
 
 <script>
     $(document).ready(function(){
-        $('.register-btn').on('click', function(){
-            location.href = 'register.php';
-        });
         $('.reset-btn').on('click', function(){
             location.href = 'password-reset.php';
         });
@@ -83,15 +79,14 @@
                     password: $password
                 };
                 $.ajax({
-                    url: 'Controller/user.php?action=login',
+                    url: 'Controller/user.php?action=admin-login',
                     type: 'post',
                     dataType: 'json',
                     success: function (data) {
                         if(data.success == true){
                             $('.warning-box').html('');
-                                location.href = 'index.php';
+                            location.href = 'admin-dashboard.php';
                         }else{
-                            console.log(data);
                             $('.warning-box').html(data.response.message);
                             $('.submit-btn').html('SUBMIT');
                         }

@@ -1,5 +1,6 @@
 <?php
 require $_SERVER['DOCUMENT_ROOT'] . '/dashboard/Model/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/dashboard/Model//Mail.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/dashboard/Model/Users.php';
 if(isset($_GET['userId']) && isset($_GET['token'])){
     $users = new Users();

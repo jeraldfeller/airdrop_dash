@@ -12,6 +12,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="admin-dashboard.php">Main</a></li>
                 <li><a href="generate-list.php">Generate ID List</a></li>
+                <li><a href="treasure-hunt.php">Treasure Hunt</a></li>
                 <li><a href="logout.php">Logout</a></li>
             </ul>
         </div><!--/.nav-collapse -->

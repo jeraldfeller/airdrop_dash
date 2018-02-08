@@ -18,6 +18,11 @@ switch ($action){
         $return = $users->userLoginFunction($data);
         echo $return;
         break;
+    case 'admin-login':
+        $data = json_decode($_POST['param'], true);
+        $return = $users->adminLoginFunction($data);
+        echo $return;
+        break;
     case 'has-shared':
         $data = json_decode($_POST['param'], true);
         $return = $users->hasSharedAction($data);

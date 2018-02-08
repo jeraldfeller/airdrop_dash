@@ -8,7 +8,7 @@ class Mail
     public function sendMail($subject, $message, $email){
         $mail = new PHPMailer\PHPMailer();
 
-         $mail->isSMTP();                                      // Set mailer to use SMTP
+        // $mail->isSMTP();                                      // Set mailer to use SMTP
         $mail->Host = 'smtp.mailgun.org';                     // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;                               // Enable SMTP authentication
         $mail->Username = 'postmaster@email.ternio.io';   // SMTP username
